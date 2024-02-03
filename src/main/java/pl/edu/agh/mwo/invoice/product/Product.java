@@ -1,6 +1,9 @@
 package pl.edu.agh.mwo.invoice.product;
 
+import pl.edu.agh.mwo.invoice.Utils;
 import java.math.BigDecimal;
+
+import static pl.edu.agh.mwo.invoice.Utils.validateName;
 
 public abstract class Product {
     private final String name;
@@ -10,24 +13,24 @@ public abstract class Product {
     private final BigDecimal taxPercent;
 
     protected Product(String name, BigDecimal price, BigDecimal tax) {
-        this.name = name;
-        this.price = price;
+        this.name = validateName(name);
+        this.price = Utils.validatePrice(price);
         this.taxPercent = tax;
     }
 
     public String getName() {
-        return null;
+        return this.name;
     }
 
     public BigDecimal getPrice() {
-        return null;
+        return this.price;
     }
 
     public BigDecimal getTaxPercent() {
-        return null;
+        return this.taxPercent;
     }
 
     public BigDecimal getPriceWithTax() {
-        return null;
+        return this.price.add(this.price.multiply(taxPercent));
     }
 }
