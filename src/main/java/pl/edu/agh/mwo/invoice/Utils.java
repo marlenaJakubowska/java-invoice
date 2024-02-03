@@ -6,7 +6,7 @@ public class Utils {
     public static BigDecimal validatePrice(BigDecimal price) {
         if (price == null) {
             throw new IllegalArgumentException("Price cannot be null");
-        } else if (price.compareTo(BigDecimal.ZERO) < 0) {
+        } else if (price.signum() == -1) {
             throw new IllegalArgumentException("Price cannot be less than zero");
         } else
             return price;
