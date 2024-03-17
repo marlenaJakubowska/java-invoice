@@ -137,4 +137,16 @@ public class InvoiceTest {
         Invoice invoicePrintable = new Invoice();
         Assert.assertTrue(invoicePrintable.getPrintableInvoice().contains("Numer faktury:"));
     }
+
+    @Test
+    public void addingSameProductTwiceShouldIncreaseQuantity() {
+        Invoice invoice = new Invoice();
+        Product product = new DairyProduct("Milk", BigDecimal.TEN);
+
+        invoice.addProduct(product, 2);
+        invoice.addProduct(product, 3);
+
+        Assert.assertEquals(1, invoice.getProducts().size());
+        Assert.assertEquals(5, invoice.getProducts().get(product).intValue());
+    }
 }
