@@ -101,7 +101,7 @@ public class InvoiceTest {
     }
 
     @Test
-    public void testInvoiceHasPropoerTotalWithQuantityMoreThanOne() {
+    public void testInvoiceHasProperTotalWithQuantityMoreThanOne() {
         // 2x chleb - price with tax: 10
         invoice.addProduct(new TaxFreeProduct("Chleb", new BigDecimal("5")), 2);
         // 3x chedar - price with tax: 32.40
@@ -124,5 +124,11 @@ public class InvoiceTest {
     @Test(expected = IllegalArgumentException.class)
     public void testAddingNullProduct() {
         invoice.addProduct(null);
+    }
+
+    @Test
+    public void testPreviousInvoiceHasSmallerInvoiceNumberThanNextInvoice() {
+        Invoice invoice2 = new Invoice();
+        Assert.assertThat(invoice.getInvoiceNumber(), Matchers.lessThan(invoice2.getInvoiceNumber()));
     }
 }
