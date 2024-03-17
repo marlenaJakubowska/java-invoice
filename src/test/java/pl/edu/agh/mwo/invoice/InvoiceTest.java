@@ -127,8 +127,14 @@ public class InvoiceTest {
     }
 
     @Test
-    public void testPreviousInvoiceHasSmallerInvoiceNumberThanNextInvoice() {
+    public void testNextInvoiceHasGreaterInvoiceNumber() {
         Invoice invoice2 = new Invoice();
-        Assert.assertThat(invoice.getInvoiceNumber(), Matchers.lessThan(invoice2.getInvoiceNumber()));
+        Assert.assertThat(invoice2.getInvoiceNumber(), Matchers.greaterThan(invoice.getInvoiceNumber()));
+    }
+
+    @Test
+    public void testInvoicePrintContainsAnInvoiceNumber() {
+        Invoice invoicePrintable = new Invoice();
+        Assert.assertTrue(invoicePrintable.getPrintableInvoice().contains("Numer faktury:"));
     }
 }

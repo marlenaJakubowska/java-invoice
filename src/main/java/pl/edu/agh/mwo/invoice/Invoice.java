@@ -8,10 +8,9 @@ import pl.edu.agh.mwo.invoice.product.Product;
 
 public class Invoice {
 
-    private static int lastInvoiceNumber = 0;
+    private static int lastInvoiceNumber;
     private final int invoiceNumber;
-
-    private final Map<Product, Integer> products = new HashMap<Product, Integer>();
+    private final Map<Product, Integer> products = new HashMap<>();
 
     public Invoice() {
         lastInvoiceNumber++;
@@ -49,6 +48,26 @@ public class Invoice {
             totalGross = totalGross.add(product.getPriceWithTax().multiply(quantity));
         }
         return totalGross;
+    }
+
+    public String getPrintableInvoice() {
+        StringBuilder printableInvoice = new StringBuilder();
+        printableInvoice.append("Numer faktury: ").append(invoiceNumber).append("\n");
+        if (products.isEmpty()) {
+            printableInvoice.append("Brak pozycji");
+        } else {
+            int positionCount = 0;
+            for (Map.Entry<Product, Integer> entry : products.entrySet()) {
+                Product product = entry.getKey();
+                int quantity = entry.getValue();
+                printableInvoice.append("Pozycja ").append(++positionCount).append(": ")
+                        .append(product.getName()).append(", ")
+                        .append(quantity).append(" szt., ")
+                        .append(product.getPrice()).append("\n");
+            }
+            printableInvoice.append("Liczba pozycji: ").append(positionCount);
+        }
+        return printableInvoice.toString();
     }
 
     public int getInvoiceNumber() {
