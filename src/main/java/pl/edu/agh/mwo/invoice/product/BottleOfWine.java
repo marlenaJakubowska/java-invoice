@@ -21,7 +21,8 @@ public class BottleOfWine extends Product implements TaxableWithExcise {
 
     @Override
     public BigDecimal getPriceWithTax() {
-        BigDecimal basePriceWithVAT = super.getPrice().multiply(super.getTaxPercent().add(BigDecimal.ONE));
-        return basePriceWithVAT.add(EXCISE_TAX);
+        BigDecimal basePriceWithVat = super.getPrice()
+                .multiply(super.getTaxPercent().add(BigDecimal.ONE));
+        return basePriceWithVat.add(EXCISE_TAX);
     }
 }
